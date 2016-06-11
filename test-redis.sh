@@ -15,20 +15,23 @@ LINE=`wget --server-response --content-on-error=off ${URL} 2>&1 | grep HTTP`
 
 # Prints result
 if [[ "$LINE" == *"200"* ]]; then
-echo Postgres working great!
+echo $2 working great!
 else
-echo Postgres failed :-/
+echo $2 failed :-/
 fi
 }
 
 rm -rf bluechatter
 git clone https://github.com/IBM-Bluemix/bluechatter.git
 cd bluechatter
-cf push $APP_NAME --no-start --random-route
-cf bs $APP_NAME redis
-cf start $APP_NAME
+cf push $APP_NAME --random-route
 
-cd ..
-rm -rf bluechatter
+if [[ $? -ne 0 ]]
+then
+   echo Ensure you have a service called 'redis-chatter'
+else
+    cd ..
+    rm -rf bluechatter
 
-check_url $APP_NAME "Redis"
+    check_url $APP_NAME "Redis"
+fi
