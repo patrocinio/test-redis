@@ -22,7 +22,7 @@ Create a user-defined service called postgres by running the following command:
 	
 You can set up SSL connection, by passing "ssl=true" in the connection string, like the example below:
 
-	create.service.sh postgres postgres://admin:<password>@aws-us-east-1-portal.16.dblayer.com:11074/compose?ssl=true
+	./create-service.sh redis-chatter redis://x:<PASSWORD>@aws-us-east-1-portal.15.dblayer.com:10854?ssl=true
 
 Then run the test:
 
